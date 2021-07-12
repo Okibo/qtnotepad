@@ -23,6 +23,9 @@ void MainWindow::on_actionNew_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open the file");
+    if(filename.isNull()){
+        return;
+    }
     QFile file(filename);
     currentFile = filename;
     if(!file.open(QIODevice::ReadOnly | QFile::Text)){
@@ -39,6 +42,9 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionSave_as_triggered()
 {
     QString filename = QFileDialog::getSaveFileName(this, "Save as");
+    if(filename.isNull()){
+        return;
+    }
     QFile file(filename);
     if(!file.open(QFile::WriteOnly | QFile::Text)){
         QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
